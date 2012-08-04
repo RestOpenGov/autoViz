@@ -43,8 +43,11 @@
 		}
 	</style>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+	
 	<script type="text/javascript">
-	var ge;
+	var ge,kmlString,kmlTemplate;
 
 	google.load("earth", "1");
 
@@ -54,12 +57,15 @@
 	   	ge.getWindow().setVisibility(true);
 	   	ge.getNavigationControl().setVisibility(ge.VISIBILITY_AUTO);
 
-	   	google.earth.fetchKml(ge, 'http://localhost/viz/autoViz/provincias_argentina.kml', function(kmlObject) {
+	   	/*google.earth.fetchKml(ge, 'http://localhost/viz/autoViz/provincias_argentina.kml', function(kmlObject) {
 		    if(kmlObject) {
 				ge.getFeatures().appendChild(kmlObject);
 			}
-		});
-
+		});*/
+		
+		var kmlObject = ge.parseKml(kmlString);
+		ge.getFeatures().appendChild(kmlObject);
+		
 		ge.getOptions().setFlyToSpeed(0.4);
 
 		var lookAt = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
@@ -76,9 +82,78 @@
 	function init() {
 	  	google.earth.createInstance('map', initCB, failureCB);		
 	}
+	
+	function getDefaultValues(){
+		return {
+			marca : "",
+			anio : 2012
+		}
+	}
+	
+	function queryElastic(anio,marca){
+		if(!anio){
+			var def = getDefaultValues();
+			anio = def.anio;
+			marca = def.marca;
+		}
+		//TODO query
+		
+		//async callback
+		resultElastic();
+		
+	}
+	
+	function resultElastic(){
+		//result example
+		var randomnumber=Math.floor(Math.random()*1100000);
+		//TODO estructura para todos
+		var result = 
+			[
+			{id : 2,cant : randomnumber}
+			];
 
-	google.setOnLoadCallback(init);
-
+		resolveTemplate(result);
+	}
+	
+	function resolveTemplate(data){
+		var search;
+		$.each(data, function(i, e) { 
+			search = new RegExp('P_'+e.id, 'gi');
+			kmlString = kmlTemplate;
+			kmlString = kmlString.replace(search, e.cant);
+		});		
+		visualize();
+		
+	}
+	
+	function visualize(){
+		init();
+	}
+	
+	$(document).ready(function(){
+	
+		//Load KML template
+		$.ajax({
+		  url: "lite.kml",
+		  cache: false,
+		  dataType: 'text'
+		}).done(function( kml ) {
+			kmlTemplate = kml;
+						
+			queryElastic();
+			
+			//google.setOnLoadCallback(init);
+		});
+		
+		$('#visualizar').click(function(){
+			$('#map').html('');
+			queryElastic($('#anio').val(), $('#marca').val());
+		});
+	
+	});
+	
+	
+	
 	</script>
 </head>
 <body>
@@ -103,7 +178,7 @@
 			</div>
 			<div class="field">
 				<label>Marca:</label>
-				<select id="anio" name="anio">
+				<select id="marca" name="anio">
 					<option value="">Todas</option>
 					<option value="Audi">Audi</option>
 					<option value="BMW">BMW</option>
