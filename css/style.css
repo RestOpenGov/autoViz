@@ -1,0 +1,52 @@
+		body { background-color:#F1F1F1; font-family:Verdana; color:#666; }
+		#content { text-align:center; margin:20px auto; font-size:10pt;width:900px; height:600px; }
+		#content .field {  
+			margin: 20px;
+			float:left;
+			width: 260px;
+		}
+		#content .field label { 
+			text-align: left;
+			width: 100px;
+			float: left; 
+			padding-top: 5px;
+			font-size: 20px;
+		}
+		#content .field select { 
+			text-align: left;
+			width: 100px;
+			float: left; 
+			font-size: 20px;
+		}
+		#description { text-align:center; margin:20px 0; font-size:10pt }
+		#map { width:550px; height:600px; box-shadow:0 0 20px #000; float:right; }
+		#filters { width:300px; height:600px; box-shadow:0 0 20px #000; float:left; }
+		#source { font-size:8pt; text-align:center }
+		#source a { color:#0000FF; text-decoration:none }
+		#source a:hover { text-decoration:underline }
+		#visualizar {
+			height: 50px;
+			width: 200px;
+			background-color: #C20A0A;
+			display: block;
+			margin: 0 auto;
+			border-radius: 10px;
+			text-decoration: none;
+			color: white;
+			padding-top: 20px;
+			font-size: 20px;
+		}
+		.loader {
+			background-image: url('../img/loader.gif');
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		#log {
+			height: 251px;
+			width: 289px;
+			float: left;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			margin: 0px 10px;
+			text-align: left;
+		}
