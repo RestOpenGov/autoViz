@@ -1,4 +1,4 @@
-	var ge,kmlTemplate,kmlObject,initialized=false;
+	var ge,kmlTemplate,kmlResuelto,kmlObject,initialized=false;
 
 	loader(true);
 
@@ -53,7 +53,7 @@
 			}
 		});*/
 		
-		kmlObject = ge.parseKml(kmlTemplate);
+		kmlObject = ge.parseKml(kmlResuelto);
 		ge.getFeatures().appendChild(kmlObject);
 		
 		ge.getOptions().setFlyToSpeed(0.4);
@@ -72,7 +72,9 @@
 		loader(false);
 	}
 
-	function failureCB(errorCode) { }
+	function failureCB(errorCode) { 
+		console.error(errorCode)
+	}
 
 	function init() {
 		//if(!initialized){
@@ -153,9 +155,10 @@
 	function resolveTemplate(data){
 		log('Completando template...');
 		var search;
+		kmlResuelto = kmlTemplate;
 		$.each(data, function(i, e) { 
 			search = new RegExp('P_'+e.id, 'gi');
-			kmlTemplate = kmlTemplate.replace(search, e.cant);
+			kmlResuelto = kmlResuelto.replace(search, e.cant);
 		});		
 		visualize();
 		
