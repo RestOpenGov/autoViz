@@ -19,7 +19,7 @@
 			font-size: 20px;
 		}
 		#description { text-align:center; margin:20px 0; font-size:10pt }
-		#bars { width:550px; height:600px; box-shadow:0 0 20px #000; float:right; }
+		#map { width:550px; height:600px; box-shadow:0 0 20px #000; float:right; }
 		#filters { width:300px; height:600px; box-shadow:0 0 20px #000; float:left; }
 		.source { font-size:8pt; text-align:center }
 		.source a { color:#0000FF; text-decoration:none }
