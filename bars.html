@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link href="css/style.css" rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div id="content">
+		<div id="filters">
+			<h1 id="description">Visualización de cantidad autos matriculados en Argentina.</h1>
+			<div class="field">
+				<label>Año:</label>
+				<select id="anio" name="anio" autocomplete="off">
+					<option value="2012">2012</option>
+					<option value="2011">2011</option>
+					<!--<option value="2010">2010</option>
+					<option value="2009">2009</option>
+					<option value="2008">2008</option>
+					<option value="2012">2007</option>
+					<option value="2011">2006</option>
+					<option value="2010">2005</option>
+					<option value="2009">2004</option>
+					<option value="2008">2003</option>
+					<option value="2008">2002</option>-->
+				</select>
+			</div>
+			<div class="field">
+				<label>Marca:</label>
+				<select id="marca" name="anio" autocomplete="off">
+					<option value="">Todas</option>
+					<option value="AUDI">Audi</option>
+					<option value="BMW">BMW</option>
+					<option value="CHEVROLET">Chevrolet</option>
+					<option value="FIAT">Fiat</option>
+					<option value="FORD">Ford</option>
+					<option value="HONDA">Honda</option>
+					<option value="ISUZU">Isuzu</option>
+					<option value="IVECO">Iveco</option>					
+					<option value="MERCEDES BENZ">Mercedes Benz</option>
+					<option value="NISSAN">Nissan</option>
+					<option value="PEUGEOT">Peugeot</option>
+					<option value="RENAULT">Renault</option>
+					<option value="RENAULT">Scania</option>
+					<option value="RENAULT">Suzuki</option>
+					<option value="TOYOTA">Toyota</option>
+					<option value="VOLKSWAGEN">Volkswagen</option>
+				</select>
+			</div>
+			<div class="field">
+				<a id="visualizar" href="javascript:;">Visualizar</a>
+			</div>
+			<div id="log"></div>
+			<div class="field">
+				<div id="loader"></div>
+			</div>
+
+		</div>
+		<div id="bars"></div>
+	</div>
+	
+	<div class="source">Fuente: <a target="_blank" href="http://www.dnrpa.gov.ar">DNRPA - Dirección Nacional de Registros nacionales de Automotor</a>. Código en <a target="_blank" href="https://github.com/palamago/comuViz">Github</a></div>
+	<div class="source"><a href="http://restopengov.org/" target="_blank"><img src="http://restopengov.org/wp-content/uploads/2012/05/powered.png" /></a></div>
+
+	<script type="text/javascript" src="js/jquery.min.1.7.2.js"></script>
+	<script type="text/javascript" src="js/RestOpenGov.js"></script>
+	<script type="text/javascript" src="js/scriptBars.js"></script>
+
+</body>
+</html>
+
