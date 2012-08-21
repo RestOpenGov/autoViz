@@ -3,10 +3,10 @@ function Data() {
 
 Data.prototype = (function() {
 
-    var _anio,_marca,_restOpenGov;
+    var _anio,_marca,_restOpenGov,_resultado;
 
     var _reset = function() {
-        _anio = '';
+        //_anio = '';
         _marca = '';
         _restOpenGov = new RestOpenGov({dataSource:'test'});
         _instance = {};
@@ -16,8 +16,16 @@ Data.prototype = (function() {
         
         consulta = {anio:_anio,marca:_marca};
         
-        _restOpenGov.search({ dataset: 'autos-'+_anio, query:'' }, _processResults);
+        _restOpenGov.search({ dataset: 'autos-'+_anio, query:'' }, _orderResults);
 
+    };
+
+    var _orderResults = function(res){
+        var field = (_marca=='')?'TOTAL':_marca;
+        res = res.sort(function(a, b){
+                 return b._source[field]-a._source[field]
+                });  
+        _processResults(res);        
     };
 
     var _processResults = function(res){
@@ -35,9 +43,8 @@ Data.prototype = (function() {
             }
 
             if(  e._source.PROVINCIA!='TOTAL' ){
-
                 obj = {  
-                  'label': e._source.PROVINCIA,  
+                  'label': _getShortProvName(e._source.PROVINCIA),  
                   'values': _getMarcasValues(e._source)
                 };
 
@@ -45,9 +52,9 @@ Data.prototype = (function() {
             };
         });
 
-        var event = jQuery.Event("retrieveInfoComplete");
-        event.results = procesado;
-        $(_instance).trigger(event);
+        _resultado = procesado;
+
+        _dispatchEvent();
 
     };
 
@@ -75,17 +82,41 @@ Data.prototype = (function() {
         return resp;
     };
 
+    var _getShortProvName = function(prov){
+        switch(prov){
+            case'TIERRA DEL FUEGO':
+                prov='T. DEL FUEGO';
+            break;
+            case'BUENOS AIRES':
+                prov='B. AIRES';
+            break;
+            case'SANTIAGO DEL ESTERO':
+                prov='SGO. DEL ESTERO';
+            break;
+            case'CAPITAL FEDERAL':
+                prov='CAP. FED.';
+            break;
+        }
+        return prov;
+    };
+
+    var _dispatchEvent = function(){
+        var event = jQuery.Event("retrieveInfoComplete");
+        event.results = _resultado;
+        $(_instance).trigger(event);
+    };
+
     return {
 
         constructor:Data,
 
         retrieveInfo: function(anio, marca) {
-            _reset();
-            _anio = anio;
-            _marca = marca;
-            _instance = this;
-
-        	_queryElastic();
+                _reset();
+                _marca = marca;
+                _anio = anio;
+                _instance = this;         
+                _queryElastic();                
+            
        	}
 
     };

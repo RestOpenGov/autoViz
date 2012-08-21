@@ -7,10 +7,11 @@ Viz.prototype = (function() {
 
    	var _renderBarChart = function(json) {
 
-   		if(!_barChart){
+   		//if(!_barChart){
 
-   		var w = parseInt($('.container').width() - 20);
+   		var w = parseInt($('.container').width() - 50);
 
+   		$('#infovis').html('');
    		//responsive width
    		$('#infovis').css('width',w+"px");
 
@@ -31,11 +32,11 @@ Viz.prototype = (function() {
 		    bottom: 5  
 		  },  
 		  //labels offset position  
-		  labelOffset:0,  
+		  labelOffset:20,  
 		  //bars style  
 		  type:useGradients? 'stacked:gradient' : 'stacked',  
 		  //whether to show the aggregation of the values  
-		  showAggregates:true,  
+		  showAggregates:false,  
 		  //whether to show the labels for the bars  
 		  showLabels:true,  
 		  //label styles  
@@ -56,9 +57,9 @@ Viz.prototype = (function() {
 		//load JSON data.  
 		_barChart.loadJSON(json);  
 
-		}else{
+		/*}else{
 			_barChart.updateJSON(json);
-		}
+		}*/
    	};
 
     return {
