@@ -32,8 +32,8 @@
 	<!-- 2. BUENOS AIRES -->
 	<Placemark>
 		<Style>
-			<LineStyle><color>CC0000ff</color><width>0</width></LineStyle>
-			<PolyStyle><color>cc00ffff</color><fill>1</fill></PolyStyle>
+			<LineStyle><color>5014B482</color><width>0</width></LineStyle>
+			<PolyStyle><color>5014B482</color><fill>1</fill></PolyStyle>
 		</Style>
 		<ExtendedData>
 			<SchemaData schemaUrl="#Provincias">
